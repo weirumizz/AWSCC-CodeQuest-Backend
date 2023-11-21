@@ -1,6 +1,6 @@
 name = "Wilmae"
 age = 20
-isFem = "female"
-department = "Backend"
+isMale = False
+department = "Backend Department"
 
-print(f"{name} is a {age}-year old {isFem} participating in {department}'s 30 Days of Coding.")
+print(f"{name} is a {age}-year old {'male' if isMale else 'female'} participating in {department}'s 30 Days of Coding.")
