@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
+    <title>Password Manager</title>
+    <style>
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group input[type="text"],
+        .form-group button {
+            margin-bottom: 5px; 
+        }
+        .button-group {
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .button-group button {
+            display: inline-block;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Password Manager</h1>
+    
+    <h2>Add New Account</h2>
+    <form action="{{ url_for('add') }}" method="post">
+        <div class="form-group">
+            <label for="website">Website:</label>
+            <input type="text" id="website" name="website" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="text" id="password" name="password" required>
+        </div>
+        <button type="submit">Add Account</button>
+    </form>
+
+    <h2>Account List</h2>
+    <ul>
+        {% for password in passwords %}
+            <li>
+                <div class="form-group"></div>
+                <strong>Website:</strong> {{ password.website }}<br>
+                <strong>Email:</strong> {{ password.email }}<br>
+                <strong>Password:</strong> {{ password.password }}<br>
+                <form action="{{ url_for('update_password', password_id=password.id) }}" method="post">
+                    <div class="form-group">
+                        <label for="website">Website:</label>
+                        <input type="text" id="website" name="website" value="{{ password.website }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="text" id="email" name="email" value="{{ password.email }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="text" id="password" name="password" value="{{ password.password }}">
+                    </div>
+                    <div class="button-group">
+                        <button type="submit">Update Account</button>
+                    </div>
+                    <div class="form-group"></div>
+                </form>
+                <form action="{{ url_for('delete', password_id=password.id) }}" method="post">
+                    <div class="button-group">
+                        <input type="hidden" name="password_id" value="{{ password.id }}">
+                        <button type="submit">Delete Account</button>
+                    </div>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
