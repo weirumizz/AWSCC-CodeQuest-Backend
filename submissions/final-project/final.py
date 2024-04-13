@@ -1,8 +1,12 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-
+from dotenv import load_dotenv
+load_dotenv()
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/Wilmae/OneDrive/文件/GitHub/AWSCC-CodeQuest-Backend/submissions/final-project/info.db'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+
 db = SQLAlchemy(app)
 
 class Password(db.Model):
